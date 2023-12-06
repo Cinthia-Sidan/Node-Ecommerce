@@ -1,5 +1,12 @@
 <h2>Usuarios Page:</h2>
 <hr>
 
+<ul>
+    {{#each usuarios}}
+        <li>
+            {{this.nombre}} - Correo electrónico: {{this.email}}
+        </li>
+</ul>{{/each}}
+
 <br><br>
 <a href="/">Home</a>

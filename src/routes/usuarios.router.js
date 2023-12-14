@@ -1,18 +1,22 @@
 import { Router } from "express";
 import { usuariosModelo } from "../DAO/models/usuarios.model.js";
+import { ManagerUsuarios } from "../DAO/managerUsuarios.js";
 import mongoose from "mongoose";
 export const router=Router()
+
+const managerUsuarios = new ManagerUsuarios();
 
 router.get('/',async(req,res)=>{
 
     // let usuarios=[{nombre:'Juan', email:'jlopez@gmail.com'}]
-    let usuarios=[]
-    try {
-        usuarios=await usuariosModelo.find({deleted:false})
-    } catch (error) {
-        console.log(error.message)        
-    }
+    //let usuarios=[]
+    //try {
+    //    usuarios=await usuariosModelo.find({deleted:false})
+    //} catch (error) {
+    //    console.log(error.message)        
+    //}
 
+    const usuarios= managerUsuarios.listarUsuarios();
     res.status(200).json({
         usuarios
     })

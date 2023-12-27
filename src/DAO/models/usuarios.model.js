@@ -6,7 +6,8 @@ const usuariosEsquema=new mongoose.Schema(
         nombre: String, apellido: String,
         email: {
            type: String, unique:true, required: true 
-        }, 
+        },
+        password: String, 
         edad: Number, 
         deleted: {
             type: Boolean, default: false 

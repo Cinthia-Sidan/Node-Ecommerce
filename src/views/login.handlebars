@@ -1,0 +1,15 @@
+<h1>Login de usuarios:</h1>
+<hr>
+
+<form action="/api/session/login" method="post">
+{{#if error}}
+    <div style="color: red">{{error}} </div>
+{{/if}}
+{{#if mensaje}}
+    <div style="color: rgb(21, 155, 185)">{{mensaje}} </div>
+{{/if}}
+<input type="email" name="email" placeholder="Email">
+<input type="password" name="password" placeholder="Contraseña">
+<br>
+<input type="submit" value="Ingresar">
+</form>

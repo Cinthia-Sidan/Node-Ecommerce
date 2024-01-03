@@ -26,7 +26,7 @@ const auth2=(req, res, next)=>{
 router.get('/',(req,res)=>{
 
     res.setHeader('Content-Type', 'text/html');
-    res.status(200).render('home')
+    res.status(200).render('home', {login:req.session.usuario?true:false})
 })
 
 router.get('/registro',auth2 ,(req,res)=>{
@@ -34,14 +34,14 @@ router.get('/registro',auth2 ,(req,res)=>{
     let {error}=req.query
 
     res.setHeader('Content-Type','text/html')
-    res.status(200).render('registro', {error})
+    res.status(200).render('registro', {error, login:false})
 })
 
 router.get('/login',auth2 ,(req,res)=>{
     let {error, mensaje}=req.query;
 
     res.setHeader('Content-Type','text/html')
-    res.status(200).render('login',{error, mensaje})
+    res.status(200).render('login',{error, mensaje, login:false})
 })
 
 router.get('/perfil', auth, (req,res)=>{
@@ -49,7 +49,7 @@ router.get('/perfil', auth, (req,res)=>{
     let usuario=req.session.usuario;
 
     res.setHeader('Content-Type','text/html')
-    res.status(200).render('perfil', {usuario})
+    res.status(200).render('perfil', {usuario, login:true})
 })
 
 router.get('/usuarios',async(req,res)=>{

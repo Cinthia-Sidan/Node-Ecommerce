@@ -1,6 +1,7 @@
 <h1>Login de usuarios:</h1>
 <hr>
-
+{{>menu}}
+<br>
 <form action="/api/session/login" method="post">
 {{#if error}}
     <div style="color: red">{{error}} </div>

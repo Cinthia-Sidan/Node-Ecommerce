@@ -4,10 +4,20 @@ export const router=Router();
 
 const managerUsuarios = new ManagerUsuarios();
 
-
+//El auth es para proteger vistas.Si en este caso no existe una sesion lo redirecciona  al login
 const auth=(req, res, next)=>{
     if(!req.session.usuario){
-        res.redirect('/login')
+        return res.redirect('/login')
+    }
+
+    next()
+}
+
+
+//En este caso si ya existe una sesion va a redireccionar al perfil
+const auth2=(req, res, next)=>{
+    if(req.session.usuario){
+       return res.redirect('/perfil')
     }
 
     next()
@@ -19,7 +29,7 @@ router.get('/',(req,res)=>{
     res.status(200).render('home')
 })
 
-router.get('/registro', (req,res)=>{
+router.get('/registro',auth2 ,(req,res)=>{
 
     let {error}=req.query
 
@@ -27,7 +37,7 @@ router.get('/registro', (req,res)=>{
     res.status(200).render('registro', {error})
 })
 
-router.get('/login', (req,res)=>{
+router.get('/login',auth2 ,(req,res)=>{
     let {error, mensaje}=req.query;
 
     res.setHeader('Content-Type','text/html')

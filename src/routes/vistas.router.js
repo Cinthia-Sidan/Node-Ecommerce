@@ -44,6 +44,7 @@ router.get('/login',auth2 ,(req,res)=>{
     res.status(200).render('login',{error, mensaje, login:false})
 })
 
+
 router.get('/perfil', auth, (req,res)=>{
     
     let usuario=req.session.usuario;

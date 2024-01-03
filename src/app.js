@@ -37,7 +37,7 @@ app.use(sessions({
     store: mongoStore.create(
         {
             mongoUrl: 'mongodb+srv://sidancin22:sidan120722@cluster0.kmhvl3s.mongodb.net/?retryWrites=true&w=majority',
-            mongoOptions: { dbName: 'coder10' },
+            mongoOptions: { dbName: 'coder20' },
             ttl: 3600
         }
     )
@@ -59,7 +59,7 @@ const server = app.listen(PORT, () => {
 
 //Conecto a la Base de datos
 try {
-    await mongoose.connect('mongodb+srv://sidancin22:sidan120722@cluster0.kmhvl3s.mongodb.net/?retryWrites=true&w=majority', { dbName: 'coder10' });
+    await mongoose.connect('mongodb+srv://sidancin22:sidan120722@cluster0.kmhvl3s.mongodb.net/?retryWrites=true&w=majority', { dbName: 'coder20' });
     console.log('DB Online');
 }
 catch (error) {

@@ -9,6 +9,8 @@ import { router as usuariosRouter } from './routes/usuarios.router.js';
 import { router as vistasRouter } from './routes/vistas.router.js';
 import { router as sessionRouter } from './routes/session.router.js';
 
+import { inicializarPassport } from './config/config.passport.js';
+import passport from 'passport';
 const PORT = 3000;
 
 const app = express();
@@ -42,6 +44,12 @@ app.use(sessions({
         }
     )
 }))
+
+//passport paso 2
+inicializarPassport()
+
+app.use(passport.initialize())
+app.use(passport.session())
 
 //carpeta de rutas estaticas
 app.use(express.static(path.join(__dirname, '/public')));

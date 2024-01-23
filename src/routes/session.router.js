@@ -3,6 +3,7 @@ import { usuariosModelo } from "../DAO/models/usuarios.model.js";
 //import crypto from 'crypto';
 import { error } from "console";
 import { creaHash, validaPassword } from "../utils.js";
+import passport from "passport";
 export const router = Router()
 
 router.post('/login', async (req, res) => {
@@ -31,8 +32,14 @@ router.post('/login', async (req, res) => {
 
 })
 
-router.post('/registro', async (req, res) => {
-    let { nombre, email, password } = req.body
+router.get('/errorRegistro', (req,res)=>{
+    return res.redirect('/registro?error=Error en el proceso de registro')
+})
+
+router.post('/registro', passport.authenticate('registro', {failureRedirect: '/api/sessions/errorRegistro'}), async (req, res) => {
+    
+    let { email } = req.body
+    /*let { nombre, email, password } = req.body
 
     if (!nombre || !email || !password) {
         return res.redirect('/registro?error=Complete todos los datos')
@@ -55,8 +62,9 @@ router.post('/registro', async (req, res) => {
         
     } catch (error) {
         res.redirect('/registro?error=Error inesperado. Reintente en unos minutos')
-    }
+    }*/
 
+    res.redirect(`/login?mensaje=Usuario ${email} registrado correctamente`)
 })
 
 router.get('/logout',(req, res)=>{

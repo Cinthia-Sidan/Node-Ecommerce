@@ -1,7 +1,7 @@
 import passport from 'passport'
 import local from 'passport-local'
 import { usuariosModelo } from '../DAO/models/usuarios.model.js'
-import { creaHash } from '../utils.js'
+import { creaHash, validaPassword } from '../utils.js'
 
 export const inicializarPassport = () => {
 
@@ -52,13 +52,36 @@ export const inicializarPassport = () => {
 
 
     passport.use('login', new local.Strategy(
-        {},
+        {
+            usernameField: 'email'
+        },
         async (username, password, done)=>{
             try{
 
+                if (!username || !password) {
+                    //return res.redirect('/login?error=Complete todos los datos')
+                    return done(null, false)
+                }
+            
+                //password = crypto.createHmac("sha256", "coder123").update(password).digest("hex");
+            
+            
+                let usuario = await usuariosModelo.findOne({ email:username})
+                if (!usuario) {
+                    //return res.redirect('/login?error=Credenciales incorrectas')
+                    return done(null, false)
+                }
+                if (!validaPassword(usuario, password)) {
+                    //return res.redirect('/login?error=Credenciales incorrectas')
+                    return done(null, false)
+                }
+
+                return done(null, usuario)
+                //previo a devolver usuario con done, passort guarda user con los datos del usuario
+             
             }
             catch(error){
-
+                return done(null, false)
             }
         }
     ))

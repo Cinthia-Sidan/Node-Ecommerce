@@ -6,8 +6,12 @@ import { creaHash, validaPassword } from "../utils.js";
 import passport from "passport";
 export const router = Router()
 
-router.post('/login', async (req, res) => {
-    let { email, password } = req.body
+router.get('/errorLogin', (req,res)=>{
+    return res.redirect('/login?error=Error en el proceso de login..')
+})
+
+router.post('/login',passport.authenticate('login', {failureRedirect:'/api/session/errorLogin'}) , async (req, res) => {
+    /*let { email, password } = req.body
 
     if (!email || !password) {
         return res.redirect('/login?error=Complete todos los datos')
@@ -22,10 +26,13 @@ router.post('/login', async (req, res) => {
     }
     if (!validaPassword(usuario, password)) {
         return res.redirect('/login?error=Credenciales incorrectas')
-    }
+    }*/
+
+    console.log(req.user);
+
     req.session.usuario = {
-        nombre: usuario.nombre,
-        email: usuario.email
+        nombre: req.user.nombre,
+        email: req.user.email
     }
 
     res.redirect('/perfil')
@@ -36,7 +43,7 @@ router.get('/errorRegistro', (req,res)=>{
     return res.redirect('/registro?error=Error en el proceso de registro')
 })
 
-router.post('/registro', passport.authenticate('registro', {failureRedirect: '/api/sessions/errorRegistro'}), async (req, res) => {
+router.post('/registro', passport.authenticate('registro', {failureRedirect: '/api/session/errorRegistro'}), async (req, res) => {
     
     let { email } = req.body
     /*let { nombre, email, password } = req.body

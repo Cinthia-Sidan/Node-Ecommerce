@@ -84,3 +84,11 @@ router.get('/logout',(req, res)=>{
     })
 })
 
+router.get('/github',passport.authenticate('github',{}) ,(req,res)=>{})
+
+router.get('/callbackGithub', passport.authenticate('github',{failureRedirect:'/api/session/errorLogin'}), (req,res)=>{
+    res.setHeader('Content-Type','application/json');
+    res.status(200).json({
+        message: "Acceso OK!!"
+    });
+})

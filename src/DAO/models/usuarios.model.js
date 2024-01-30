@@ -16,7 +16,7 @@ const usuariosEsquema=new mongoose.Schema(
     {
         timestamps: true,
         //timestamps guarda el tiempo en el que se guardo el dato nuevo, Strict permite agregar valores que no estan en la estructura
-        strict: true
+        strict: false
     }
 )
 

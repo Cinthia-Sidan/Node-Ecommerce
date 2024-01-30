@@ -2,6 +2,7 @@ import passport from 'passport'
 import local from 'passport-local'
 import { usuariosModelo } from '../DAO/models/usuarios.model.js'
 import { creaHash, validaPassword } from '../utils.js'
+import github from 'passport-github2'
 
 export const inicializarPassport = () => {
 
@@ -86,6 +87,32 @@ export const inicializarPassport = () => {
         }
     ))
 
+    
+    passport.use('github', new github.Strategy(
+        {
+            clientID: "Iv1.b23b6058f32cf582",
+            clientSecret: "94497785204ae08d7002707d40aec4198ac9cba5",
+            callbackURL: "http://localhost:3000/api/session/callbackGithub",
+        },
+        async(accessToken, refreshToken, profile, done)=>{
+            try{
+                let usuario=await usuariosModelo.findOne({email: profile._json.email})
+                if (!usuario){
+                    let nuevoUsuario={
+                        nombre: profile._json.name,
+                        email: profile._json.email,
+                        profile
+                    }
+
+                    usuario=await usuariosModelo.create(nuevoUsuario)
+                }
+                return done(null, usuario)
+            }
+            catch(error){
+                done(error)
+            }
+        }
+    ))
 
     //configurar serializador y deserializador
     passport.serializeUser((usuario, done)=>{

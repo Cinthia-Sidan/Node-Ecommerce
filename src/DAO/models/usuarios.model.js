@@ -8,7 +8,9 @@ const usuariosEsquema=new mongoose.Schema(
            type: String, unique:true, required: true 
         },
         password: String, 
-        edad: Number, 
+        edad: Number,
+        cart: {type: mongoose.Schema.Types.ObjectId, ref: 'Cart'},
+        role: {type: String, default: 'user'}, 
         deleted: {
             type: Boolean, default: false 
         }

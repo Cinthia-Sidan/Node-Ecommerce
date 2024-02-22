@@ -1,4 +1,5 @@
 import __dirname from './utils.js';
+import { config } from './config/config.js';
 import sessions from 'express-session';
 import mongoStore from 'connect-mongo';
 import path from 'path';
@@ -11,7 +12,8 @@ import { router as sessionRouter } from './routes/session.router.js';
 
 import { inicializarPassport } from './config/config.passport.js';
 import passport from 'passport';
-const PORT = 3000;
+//const PORT = 3000;
+const PORT =config.PORT;
 
 const app = express();
 
@@ -66,8 +68,16 @@ const server = app.listen(PORT, () => {
 
 
 //Conecto a la Base de datos
+//try {
+//    await mongoose.connect('mongodb+srv://sidancin22:sidan120722@cluster0.kmhvl3s.mongodb.net/?retryWrites=true&w=majority', { dbName: 'coder20' });
+//    console.log('DB Online');
+//}
+//catch (error) {
+//    console.log(error.message);
+//}
+
 try {
-    await mongoose.connect('mongodb+srv://sidancin22:sidan120722@cluster0.kmhvl3s.mongodb.net/?retryWrites=true&w=majority', { dbName: 'coder20' });
+    await mongoose.connect(config.MONGO_URL, { dbName: config.DBNAME  });
     console.log('DB Online');
 }
 catch (error) {

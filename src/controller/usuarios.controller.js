@@ -1,6 +1,6 @@
 import { usuariosService } from "../services/usuarios.service.js"
 
-export class UsuariosController {
+/*export class UsuariosController {
     constructor() { }
 
     //agregando el static no necesito crear una instancia en el router para llamar a la funcion
@@ -86,4 +86,35 @@ export class UsuariosController {
             }
         }
     }
+}*/
+
+async function getUsuarios(req, res) {
+
+    let usuarios = await usuariosService.getUsuarios()
+
+    res.setHeader('Content-Type', 'application/json')
+    res.status(200).json({ usuarios })
+
+    //const usuarios = ManagerUsuarios.listarUsuarios();
+    //res.status(200).json({
+    //usuarios
+    //})
+
 }
+
+async function getUsuarioByEmail(req, res) {
+
+    let usuarios = await usuariosService.getUsuarioByEmail(req.params.email)
+
+    res.setHeader('Content-Type', 'application/json')
+    res.status(200).json({ usuarios })
+
+    //const usuarios = ManagerUsuarios.listarUsuarios();
+    //res.status(200).json({
+    //usuarios
+    //})
+
+}
+
+
+export default {getUsuarios,getUsuarioByEmail }

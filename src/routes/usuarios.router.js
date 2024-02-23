@@ -2,7 +2,8 @@ import { Router } from "express";
 import { usuariosModelo } from "../DAO/models/usuarios.model.js";
 import { ManagerUsuarios } from "../DAO/managerUsuarios.js";
 import mongoose from "mongoose";
-import { UsuariosController } from "../controller/usuarios.controller.js";
+//import { UsuariosController } from "../controller/usuarios.controller.js";
+import usuariosController from "../controller/usuarios.controller.js"
 export const router = Router()
 
 const managerUsuarios = new ManagerUsuarios();
@@ -23,9 +24,11 @@ const managerUsuarios = new ManagerUsuarios();
 //    })
 //})
 
-router.get('/', UsuariosController.getUsuarios)
+router.get('/', usuariosController.getUsuarios)
 
-router.get('/:id', async (req, res) => {
+router.get('/email/:email', usuariosController.getUsuarioByEmail)
+
+/*router.get('/:id', async (req, res) => {
     let { id } = req.params
 
     try {
@@ -61,7 +64,7 @@ router.get('/:id', async (req, res) => {
 
 });*/
 
-router.post('/', UsuariosController.createUsuario)
+//router.post('/', usuariosController.createUsuario)
 
 
 /*router.put('/:id', async (req, res) => {
@@ -103,7 +106,7 @@ router.post('/', UsuariosController.createUsuario)
 
 })*/
 
-router.put('/:email', UsuariosController.updateUsuario)
+//router.put('/:email', usuariosController.updateUsuario)
 
 /*router.delete('/:id', async (req, res) => {
     let { id } = req.params
@@ -124,4 +127,4 @@ router.put('/:email', UsuariosController.updateUsuario)
 
 })*/
 
-router.delete('/:email', UsuariosController.deleteUsuario)
+//router.delete('/:email', usuariosController.deleteUsuario)

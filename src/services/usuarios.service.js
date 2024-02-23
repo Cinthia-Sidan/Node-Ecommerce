@@ -1,18 +1,22 @@
 import { UsuariosMongoDAO as DAO } from "../DAO/usuariosMongoDAO.js"
+import { UsuariosGetDTO } from "../DTO/usuarioas.DTO.js"
 
 
 
 class UsuariosService{
     constructor(dao){
-        this.dao=new dao()
+        this.dao=dao
     }
 
     async getUsuarios(){
-        return await this.dao.get()
+        let usuarios= await this.dao.get()
+        usuarios=usuarios.map(usuario=>new UsuariosGetDTO(usuario))
+        return usuarios
     }
 
     async getUsuarioByEmail(email){
-        return await this.dao.getBy(email)
+        let usuario = await this.dao.getBy(email)
+        return new UsuariosGetDTO(usuario)
     }
 
     async createUsuario(usuario){
@@ -28,4 +32,4 @@ class UsuariosService{
     }
 }
 
-export const usuariosService = new UsuariosService(DAO)
+export const usuariosService = new UsuariosService(new DAO())

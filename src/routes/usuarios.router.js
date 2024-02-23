@@ -2,11 +2,12 @@ import { Router } from "express";
 import { usuariosModelo } from "../DAO/models/usuarios.model.js";
 import { ManagerUsuarios } from "../DAO/managerUsuarios.js";
 import mongoose from "mongoose";
+import { UsuariosController } from "../controller/usuarios.controller.js";
 export const router = Router()
 
 const managerUsuarios = new ManagerUsuarios();
 
-router.get('/', async (req, res) => {
+//router.get('/', async (req, res) => {
 
     // let usuarios=[{nombre:'Juan', email:'jlopez@gmail.com'}]
     //let usuarios=[]
@@ -16,11 +17,13 @@ router.get('/', async (req, res) => {
     //    console.log(error.message)        
     //}
 
-    const usuarios = managerUsuarios.listarUsuarios();
-    res.status(200).json({
-        usuarios
-    })
-})
+//    const usuarios = managerUsuarios.listarUsuarios();
+//    res.status(200).json({
+//        usuarios
+//    })
+//})
+
+router.get('/', UsuariosController.getUsuarios)
 
 router.get('/:id', async (req, res) => {
     let { id } = req.params
@@ -41,7 +44,7 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
+/*router.post('/', async (req, res) => {
     let { nombre, email, apellido } = req.body
     
     try{
@@ -56,10 +59,12 @@ router.post('/', async (req, res) => {
         }
     }
 
-});
+});*/
+
+router.post('/', UsuariosController.createUsuario)
 
 
-router.put('/:id', async (req, res) => {
+/*router.put('/:id', async (req, res) => {
     let { id } = req.params
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -96,9 +101,11 @@ router.put('/:id', async (req, res) => {
         return res.status(500).json({ error: `Error inesperado en el servidor - Intente más tarde, o contacte a su administrador`, detalle: error.message })
     }
 
-})
+})*/
 
-router.delete('/:id', async (req, res) => {
+router.put('/:email', UsuariosController.updateUsuario)
+
+/*router.delete('/:id', async (req, res) => {
     let { id } = req.params
 
     try {
@@ -115,4 +122,6 @@ router.delete('/:id', async (req, res) => {
         }
     }
 
-})
+})*/
+
+router.delete('/:email', UsuariosController.deleteUsuario)

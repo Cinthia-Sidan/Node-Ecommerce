@@ -9,6 +9,9 @@ import mongoose from 'mongoose';
 import { router as usuariosRouter } from './routes/usuarios.router.js';
 import { router as vistasRouter } from './routes/vistas.router.js';
 import { router as sessionRouter } from './routes/session.router.js';
+import {router as productosRouter} from './routes/productos.router.js';
+
+
 
 import { inicializarPassport } from './config/config.passport.js';
 import passport from 'passport';
@@ -60,6 +63,7 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.use('/', vistasRouter);
 app.use('/api/session', sessionRouter);
 app.use('/api/usuarios', usuariosRouter);
+app.use('/api/productos', productosRouter);
 
 //Levanto el servidor
 const server = app.listen(PORT, () => {

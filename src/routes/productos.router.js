@@ -1,10 +1,12 @@
 import { Router } from "express";
-import { productModel } from "../DAO/models/productos.model";
+import { productModel } from "../DAO/models/productos.model.js";
 import mongoose from "mongoose";
+import { ProductosController } from "../controller/productos.controller.js";
+
 export const router=Router()
 
 
-router.get("/", async (req, res) => {
+/*router.get("/", async (req, res) => {
     try {
         //Obtengo los query params
         const { limit = 10, page = 1, sort, query } = req.query;
@@ -63,9 +65,11 @@ router.get("/", async (req, res) => {
     } catch (error) {
         console.log(error);
     }
-})
+})*/
 
-router.post("/", async (req, res) => {
+router.get('/', ProductosController.getProductos)
+
+/*router.post("/", async (req, res) => {
     let { nombre, stock, precio, descripcion } = req.body
 
     if (!nombre || !stock || !precio || !descripcion) {
@@ -74,9 +78,10 @@ router.post("/", async (req, res) => {
 
     let result = await productModel.create({ nombre, stock, precio, descripcion })
     res.send({ result: "success", payload: result })
-})
+})*/
+router.post('/', ProductosController.createProducto)
 
-router.put("/:pid", async (req, res) => {
+/*router.put("/:pid", async (req, res) => {
     let { pid } = req.params
 
     let productToReplace = req.body
@@ -88,7 +93,8 @@ router.put("/:pid", async (req, res) => {
     let result = await productModel.updateOne({ _id: pid }, productToReplace)
     res.send({ result: "success", payload: result })
 
-})
+})*/
+router.put("/:pid", ProductosController.updateProducto)
 
 router.delete("/:pid", async (req, res) => {
     let { pid } = req.params
@@ -97,4 +103,4 @@ router.delete("/:pid", async (req, res) => {
     res.send({ result: "success", payload: result })
 })
 
-module.exports = router;
+//module.exports = router;

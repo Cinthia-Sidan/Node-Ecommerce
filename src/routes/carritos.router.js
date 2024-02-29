@@ -1,9 +1,14 @@
 import { Router } from "express";
-import { cartModel } from "../DAO/models/carritos.model";
-import mongoose from "mongoose";
+import { CarritosController } from "../controller/carritos.controller.js";
+
 export const router=Router()
 
-router.get("/:cid", async (req, res) => {
+
+router.get('/', CarritosController.getCarritos )
+
+router.post('/', CarritosController.createCarrito)
+
+/*router.get("/:cid", async (req, res) => {
     try {
         const cart = await cartModel
             .findById(req.params.cid)
@@ -173,4 +178,4 @@ router.delete("/:cid", async (req, res) => {
         console.error(error);
         res.status(500).json({ message: "Error al eliminar todos los productos del carrito." });
     }
-});
+});*/

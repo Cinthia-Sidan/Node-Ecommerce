@@ -18,6 +18,20 @@ export class UsuariosController {
 
     }
 
+    static async getUsuarioById(req, res) {
+
+       
+
+        res.setHeader('Content-Type', 'application/json')
+        res.status(200).json({ payload:"getUsuarioById" })
+
+        //const usuarios = ManagerUsuarios.listarUsuarios();
+        //res.status(200).json({
+        //usuarios
+        //})
+
+    }
+
     static async createUsuario(req, res) {
         let { nombre, email, password } = req.body
         if (!nombre || !email || !password) {

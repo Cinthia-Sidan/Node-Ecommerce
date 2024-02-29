@@ -1,10 +1,14 @@
 import { Router } from "express";
-import { productModel } from "../DAO/models/productos.model.js";
-import mongoose from "mongoose";
 import { ProductosController } from "../controller/productos.controller.js";
 
 export const router=Router()
 
+
+router.get('/', ProductosController.getProductos)
+
+router.post('/', ProductosController.createProducto)
+
+router.put("/:pid", ProductosController.updateProducto)
 
 /*router.get("/", async (req, res) => {
     try {
@@ -67,7 +71,7 @@ export const router=Router()
     }
 })*/
 
-router.get('/', ProductosController.getProductos)
+
 
 /*router.post("/", async (req, res) => {
     let { nombre, stock, precio, descripcion } = req.body
@@ -79,7 +83,7 @@ router.get('/', ProductosController.getProductos)
     let result = await productModel.create({ nombre, stock, precio, descripcion })
     res.send({ result: "success", payload: result })
 })*/
-router.post('/', ProductosController.createProducto)
+
 
 /*router.put("/:pid", async (req, res) => {
     let { pid } = req.params
@@ -94,7 +98,7 @@ router.post('/', ProductosController.createProducto)
     res.send({ result: "success", payload: result })
 
 })*/
-router.put("/:pid", ProductosController.updateProducto)
+
 
 router.delete("/:pid", async (req, res) => {
     let { pid } = req.params

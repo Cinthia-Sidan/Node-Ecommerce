@@ -7,6 +7,18 @@ export const router = Router()
 
 const managerUsuarios = new ManagerUsuarios();
 
+router.get('/', UsuariosController.getUsuarios)
+
+router.get('/:uid', UsuariosController.getUsuarioById)
+
+router.post('/', UsuariosController.createUsuario)
+
+router.put('/:email', UsuariosController.updateUsuario)
+
+router.delete('/:email', UsuariosController.deleteUsuario)
+
+
+
 //router.get('/', async (req, res) => {
 
     // let usuarios=[{nombre:'Juan', email:'jlopez@gmail.com'}]
@@ -23,9 +35,9 @@ const managerUsuarios = new ManagerUsuarios();
 //    })
 //})
 
-router.get('/', UsuariosController.getUsuarios)
 
-router.get('/:id', async (req, res) => {
+
+/*router.get('/:id', async (req, res) => {
     let { id } = req.params
 
     try {
@@ -42,7 +54,7 @@ router.get('/:id', async (req, res) => {
             return res.status(500).json({ error: 'Error inesperado en el servidor. Intente más tarde o contacte a su administrador.' });
         }
     }
-})
+})*/
 
 /*router.post('/', async (req, res) => {
     let { nombre, email, apellido } = req.body
@@ -61,7 +73,7 @@ router.get('/:id', async (req, res) => {
 
 });*/
 
-router.post('/', UsuariosController.createUsuario)
+
 
 
 /*router.put('/:id', async (req, res) => {
@@ -103,7 +115,7 @@ router.post('/', UsuariosController.createUsuario)
 
 })*/
 
-router.put('/:email', UsuariosController.updateUsuario)
+
 
 /*router.delete('/:id', async (req, res) => {
     let { id } = req.params
@@ -124,4 +136,3 @@ router.put('/:email', UsuariosController.updateUsuario)
 
 })*/
 
-router.delete('/:email', UsuariosController.deleteUsuario)

@@ -21,4 +21,4 @@ class Singleton{
     }
 }
 
-Singleton.conectarDB("mongodb+srv://sidancin22:sidan120722@cluster0.kmhvl3s.mongodb.net/?retryWrites=true&w=majority&dbName=coder20")
+//Singleton.conectarDB("mongodb+srv://sidancin22:sidan120722@cluster0.kmhvl3s.mongodb.net/?retryWrites=true&w=majority&dbName=coder20")

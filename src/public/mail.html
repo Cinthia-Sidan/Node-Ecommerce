@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mails</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <h2>Envío de Mails</h2>
+    <hr>
+    <div class="container">
+        <form action="/api/mail" class="form" method="post" enctype="multipart/form-data">
+            <input type="text" name="to" placeholder="Destinatario">
+            <input type="text" name="subject" placeholder="Asunto">
+            <input type="text" name="message" placeholder="Mensaje">
+            <input type="file" name="adjuntos" multiple>
+            <br><br>
+    
+            <input type="submit" class="button" value="Enviar">
+    
+        </form>
+    </div>
+</body>
+</html>

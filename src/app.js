@@ -11,6 +11,7 @@ import { router as vistasRouter } from './routes/vistas.router.js';
 import { router as sessionRouter } from './routes/session.router.js';
 import {router as productosRouter} from './routes/productos.router.js';
 import {router as carritosRouter } from './routes/carritos.router.js';
+import { router as mailRouter } from './routes/mail.router.js';
 
 
 import { inicializarPassport } from './config/config.passport.js';
@@ -61,12 +62,13 @@ app.use(passport.session())
 //carpeta de rutas estaticas
 app.use(express.static(path.join(__dirname, '/public')));
 
-
 app.use('/', vistasRouter);
 app.use('/api/session', sessionRouter);
 app.use('/api/usuarios', usuariosRouter);
 app.use('/api/productos', productosRouter);
 app.use('/api/carritos', carritosRouter);
+app.use('/api/mail', mailRouter);
+
 
 //Levanto el servidor
 const server = app.listen(PORT, () => {

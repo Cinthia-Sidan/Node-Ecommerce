@@ -6,8 +6,25 @@ export class ProductosController{
     static async getProductos(req, res){
         let productos = await productosService.getProductos()
 
-        res.setHeader('Content-Type','application/json')
-        res.status(200).json({productos})
+        if (!productos) {
+            res.setHeader('Content-Type', 'application/json')
+            res.status(500).json({ error: `Error inesperado en el servidor` })
+        } else {
+            res.setHeader('Content-Type', 'application/json')
+            res.status(200).json({ productos })
+        }
+    }
+
+    static async getProductoById(req, res){
+        let producto = await productosService.getProductoById(req.params.pid)
+
+        if (!producto) {
+            res.setHeader('Content-Type', 'application/json')
+            res.status(500).json({ error: `Error inesperado en el servidor` })
+        } else {
+            res.setHeader('Content-Type', 'application/json')
+            res.status(200).json({ producto })
+        }
     }
 
     static async createProducto(req,res){

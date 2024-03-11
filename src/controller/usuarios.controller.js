@@ -8,8 +8,14 @@ export class UsuariosController {
 
         let usuarios = await usuariosService.getUsuarios()
 
-        res.setHeader('Content-Type', 'application/json')
-        res.status(200).json({ usuarios })
+        if (!usuarios) {
+            res.setHeader('Content-Type', 'application/json')
+            res.status(500).json({ error: `Error inesperado en el servidor` })
+        } else {
+            res.setHeader('Content-Type', 'application/json')
+            res.status(200).json({ usuarios })
+        }
+
 
         //const usuarios = ManagerUsuarios.listarUsuarios();
         //res.status(200).json({
@@ -20,11 +26,15 @@ export class UsuariosController {
 
     static async getUsuarioById(req, res) {
 
-       
+        let usuario = await usuariosService.getUsuarioById(req.params.uid)
 
-        res.setHeader('Content-Type', 'application/json')
-        res.status(200).json({ payload:"getUsuarioById" })
-
+        if (!usuario) {
+            res.setHeader('Content-Type', 'application/json')
+            res.status(500).json({ error: `Error inesperado en el servidor` })
+        } else {
+            res.setHeader('Content-Type', 'application/json')
+            res.status(200).json({ usuario })
+        }
         //const usuarios = ManagerUsuarios.listarUsuarios();
         //res.status(200).json({
         //usuarios

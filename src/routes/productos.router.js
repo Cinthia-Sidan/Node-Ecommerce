@@ -6,6 +6,8 @@ export const router=Router()
 
 router.get('/', ProductosController.getProductos)
 
+router.get('/:pid', ProductosController.getProductoById)
+
 router.post('/', ProductosController.createProducto)
 
 router.put("/:pid", ProductosController.updateProducto)

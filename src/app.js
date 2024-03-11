@@ -12,6 +12,7 @@ import { router as sessionRouter } from './routes/session.router.js';
 import {router as productosRouter} from './routes/productos.router.js';
 import {router as carritosRouter } from './routes/carritos.router.js';
 import { router as mailRouter } from './routes/mail.router.js';
+import { enviarWS } from './whatsApp.js';
 
 
 import { inicializarPassport } from './config/config.passport.js';
@@ -68,7 +69,22 @@ app.use('/api/usuarios', usuariosRouter);
 app.use('/api/productos', productosRouter);
 app.use('/api/carritos', carritosRouter);
 app.use('/api/mail', mailRouter);
+app.get('/ws', async(req,res)=>{
+    let {mensaje, numero}=req.query
 
+    try{
+        let resultado=await enviarWS(mensaje, numero)
+        
+        res.setHeader('Content-Type', 'application/json');
+        return res.status(200).json({resultado});
+
+    }catch(error){
+        console.log(error);
+        res.setHeader('Content-Type', 'application/json');
+        return res.status(500).json({error:`Error inesperado en el servidor`})
+    }
+    
+})
 
 //Levanto el servidor
 const server = app.listen(PORT, () => {

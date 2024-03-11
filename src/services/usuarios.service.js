@@ -15,12 +15,19 @@ class UsuariosService{
         return await this.dao.getBy(email)
     }
 
+    async getUsuarioById(id){
+        return await this.dao.getBy(id)
+    }
+
     async createUsuario(usuario){
         return await this.dao.create(usuario)
     }
 
-    async updateUsuario(email, usuario) {
-        return await this.dao.update(email, usuario)
+    async updateUsuarioByEmail(email, usuario) {
+        return await this.dao.updateByEmail(email, usuario)
+    }
+    async updateUsuario(id, usuario) {
+        return await this.dao.update(id, usuario)
     }
 
     async deleteUsuario(email){

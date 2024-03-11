@@ -5,10 +5,21 @@ import twilio from 'twilio'
 
 const client = twilio(accountSid, authToken)
 
-client.messages
+// client.messages
+//     .create({
+//         body: 'Mensaje de prueba de Whats App',
+//         from: 'whatsapp:+14155238886',
+//         to: 'whatsapp:+5492613018098'
+//     })
+//     .then(message => console.log(message.sid))
+    
+export const enviarWS=(mensaje, numero)=>{
+    return client.messages
     .create({
-        body: 'Mensaje de prueba de Whats App',
+        body: mensaje,
         from: 'whatsapp:+14155238886',
-        to: 'whatsapp:+5492613018098'
+        to: 'whatsapp:+549'+numero
     })
     .then(message => console.log(message.sid))
+    
+}

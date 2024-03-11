@@ -1,21 +1,17 @@
 import mongoose from "mongoose";
 
-const cartCollection = "carritos";
-
-const cartSchema = new mongoose.Schema({
-    products:[{
-        type: [
-            {
-                product:{
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: "productos"
-                },
-                quantity:{type: Number, default: 1}
-            }
-        ],
-        default: []
-    }],
-})
-
-export const cartModel = mongoose.model(cartCollection, cartSchema)
+export const carritosModelo=mongoose.model(
+    "carritos",
+    new mongoose.Schema(
+        {
+            numero: Number,
+            usuario: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "usuarios"
+            },
+            productos:[],
+            total: Number
+        }, {timestamps: true}
+    )
+)
 

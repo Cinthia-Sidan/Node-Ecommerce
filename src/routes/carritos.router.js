@@ -6,6 +6,8 @@ export const router=Router()
 
 router.get('/', CarritosController.getCarritos )
 
+router.get('/cid', CarritosController.getCarritoById)
+
 router.post('/', CarritosController.createCarrito)
 
 /*router.get("/:cid", async (req, res) => {

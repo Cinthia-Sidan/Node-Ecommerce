@@ -9,6 +9,7 @@ export class ProductosMongoDAO{
     }
 
     async getBy(id){
+        let producto
         return producto= await productModel.findOne({_id: id})
     }
 

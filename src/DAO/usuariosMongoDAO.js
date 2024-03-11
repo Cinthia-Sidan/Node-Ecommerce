@@ -11,12 +11,21 @@ export class UsuariosMongoDAO{
         return usuario= await usuariosModelo.findOne({deleted: false, email})
     }
 
+    async getBy(id){
+        let usuario
+        return usuario= await usuariosModelo.findOne({deleted: false, _id: id})
+    }
+
     async create(usuario){
         return await usuariosModelo.create(usuario)
     }
 
-    async update(email, usuario) {
-        return await usuariosModelo.findOneAndUpdate({ email: email, deleted: false }, usuario, { new: true });
+    async update(id, usuario) {
+        return await usuariosModelo.updateOne({ _id: id, deleted: false }, usuario);
+    }
+
+    async updateByEmail(email, usuario) {
+        return await usuariosModelo.updateOne({ email: email, deleted: false }, usuario);
     }
 
     async delete(email){

@@ -6,7 +6,7 @@ export class UsuariosMongoDAO{
         return usuariosModelo.find()
     }
 
-    async getBy(email){
+    async getByEmail(email){
         let usuario
         return usuario= await usuariosModelo.findOne({deleted: false, email})
     }

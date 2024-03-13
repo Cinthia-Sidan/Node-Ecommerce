@@ -40,9 +40,11 @@ export class CarritosController {
 
         let usuario =await usuariosService.getUsuarioById(usuarioId);
 
+
         //PEDIDO: [{id:2, cantidad:3},{id:5, cantidad:4}]
         let error=false
         let total=0
+
 
         for (let item of pedido) {
 
@@ -82,6 +84,7 @@ export class CarritosController {
             res.setHeader('Content-Type', 'application/json')
             return res.status(500).json({ error: `Error inesperado en el servidor al crear Carrito` })
         } else {
+
             usuario.carritos.push(nuevoCarrito._id)
             await usuariosService.updateUsuario(usuarioId, usuario)
 

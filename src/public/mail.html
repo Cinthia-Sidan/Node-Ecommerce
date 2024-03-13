@@ -10,11 +10,11 @@
     <h2>Envío de Mails</h2>
     <hr>
     <div class="container">
-        <form action="/api/mail" class="form" method="post" enctype="multipart/form-data">
-            <input type="text" name="to" placeholder="Destinatario">
-            <input type="text" name="subject" placeholder="Asunto">
-            <input type="text" name="message" placeholder="Mensaje">
-            <input type="file" name="adjuntos" multiple>
+        <form action="/api/mail" class="form-login" method="post" enctype="multipart/form-data">
+            <input type="text" class="input-login" name="to" placeholder="Destinatario">
+            <input type="text" class="input-login" name="subject" placeholder="Asunto">
+            <input type="text" class="input-login" name="message" placeholder="Mensaje">
+            <input type="file" class="input-login" name="adjuntos" multiple>
             <br><br>
     
             <input type="submit" class="button" value="Enviar">

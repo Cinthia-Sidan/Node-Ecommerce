@@ -10,8 +10,8 @@ export class ProductosController{
             res.setHeader('Content-Type', 'application/json')
             res.status(500).json({ error: `Error inesperado en el servidor` })
         } else {
-            res.setHeader('Content-Type', 'application/json')
-            res.status(200).json({ productos })
+            res.setHeader('Content-Type','text/html')
+            res.status(200).render("home",{ productos })
         }
     }
 

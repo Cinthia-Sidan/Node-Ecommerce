@@ -1,3 +1,12 @@
-<h2>Home Page</h2>
-
 {{>menu}}
+
+<h1>Lista de Productos</h1>
+<div class="productos">
+    {{#each productos}}
+    <div class="producto">
+        <h2>{{nombre}}</h2>
+        <p>Precio: {{precio}}</p>
+        <p>{{descripcion}}</p>
+    </div>
+    {{/each}}
+</div>

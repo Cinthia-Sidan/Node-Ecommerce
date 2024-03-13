@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { ManagerUsuarios } from "../DAO/managerUsuarios.js";
+import { ProductosController } from "../controller/productos.controller.js";
 export const router=Router();
 
 const managerUsuarios = new ManagerUsuarios();
@@ -23,11 +24,11 @@ const auth2=(req, res, next)=>{
     next()
 }
 
-router.get('/',(req,res)=>{
+//router.get('/',(req,res)=>{
 
-    res.setHeader('Content-Type', 'text/html');
-    res.status(200).render('home', {login:req.session.usuario?true:false})
-})
+//    res.setHeader('Content-Type', 'text/html');
+//    res.status(200).render('home', {login:req.session.usuario?true:false})
+//})
 
 router.get('/registro',auth2 ,(req,res)=>{
 
@@ -66,3 +67,5 @@ router.get('/usuarios',async(req,res)=>{
     res.setHeader('Content-Type','text/html')
     res.status(200).render('usuarios', {usuarios})
 })
+
+router.get('/', ProductosController.getProductos)

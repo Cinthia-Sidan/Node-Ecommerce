@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito</title>
+</head>
+<body>
+    <h2>Pedido:</h2>
+    <hr>
+    <button onclick="buscar()">Buscar Pedido</button>
+    <div id="ordenes"></div>
+    
+    <script>
+        const buscar=async()=>{
+            let respuesta= await fetch("http://localhost:3000/api/carritos")
+            if(respuesta.status===200){
+                let datos=await respuesta.json()
+                
+            }
+        }
+    </script>
+</body>
+</html>

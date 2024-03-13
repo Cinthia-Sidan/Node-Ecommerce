@@ -12,7 +12,7 @@ class UsuariosService{
     }
 
     async getUsuarioByEmail(email){
-        return await this.dao.getBy(email)
+        return await this.dao.getByEmail(email)
     }
 
     async getUsuarioById(id){

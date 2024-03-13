@@ -1,34 +1,20 @@
-body{
-background-color: rgb(241, 241, 241);
+body {
+    background-color: #09161f;
+    color: white;
 }
 
 h2 {
     text-align: center;
     margin-bottom: 20px;
-    color: #333;
+    color: white;
 }
 
-.form{
-    max-width: 400px;
-    margin: 50px auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.input{
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
 
 .button {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
-    border: none;
+    background: #2d2c36;
+    border-color: orange;
     color: #fff;
     border-radius: 5px;
     cursor: pointer;
@@ -36,5 +22,101 @@ h2 {
 }
 
 .button:hover {
-    background-color: #0056b3;
+    background-color: orange;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 20px;
+    padding-left: 5%;
+    padding-right: 5%;
+    font-weight: bold;
+
+}
+
+h1 {
+    color: white;
+    font-size: 30px;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #cc7500;
+}
+
+ul {
+    width: 50%;
+    display: flex;
+    list-style-type: none;
+    justify-content: flex-end;
+}
+
+li {
+    margin-left: 15px;
+}
+
+.form-login {
+    width: 400px;
+    background: #2d2c36;
+    padding: 30px;
+    margin: auto;
+    margin-top: 100px;
+    border-radius: 4px;
+    font-family: 'calibri';
+    color: white;
+}
+
+.input-login {
+    background: #ffffff00;
+    border-color: orange;
+    width: 95%;
+    color: #a8a7a7;
+    margin: 5px;
+}
+
+.boton {
+    display: inline-block;
+    width: 60%;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    background-color: #cc7500;
+    border: 2px solid #cc7500;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-left: 20%;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.productos{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Cuatro columnas con tamaño igual */
+    gap: 10px; /* Espacio entre las celdas */
+    justify-items: center;
+}
+
+.producto {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 200px;
+    height: 300px;
+    display: inline-block; /* Para que cada producto esté en línea */
+    margin-right: 10px; /* Espacio entre los recuadros de producto */
+}
+
+.producto h2 {
+    margin-top: 0;
+}
+
+.producto p {
+    margin-bottom: 5px;
 }

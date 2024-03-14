@@ -13,7 +13,7 @@ import {router as productosRouter} from './routes/productos.router.js';
 import {router as carritosRouter } from './routes/carritos.router.js';
 import { router as mailRouter } from './routes/mail.router.js';
 import { enviarWS } from './whatsApp.js';
-
+import cors from 'cors'
 
 import { inicializarPassport } from './config/config.passport.js';
 import passport from 'passport';
@@ -38,7 +38,7 @@ app.set('views', path.join(__dirname, 'views'));
 //Parsea la información de req en el body y tomarla como json
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cors())
 
 //uso de session
 app.use(sessions({

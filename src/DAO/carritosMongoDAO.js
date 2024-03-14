@@ -5,7 +5,7 @@ export class CarritoMongoDAO {
 
     async get() {
         try {
-            return await carritosModelo.find()
+            return await carritosModelo.find().populate("usuario").lean()
         } catch (error) {
             console.log(error.message);
             return null

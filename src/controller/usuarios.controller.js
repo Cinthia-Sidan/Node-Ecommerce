@@ -43,8 +43,8 @@ export class UsuariosController {
     }
 
     static async createUsuario(req, res) {
-        let { nombre, email, password } = req.body
-        if (!nombre || !email || !password) {
+        let { nombre, email, password, edad } = req.body
+        if (!nombre || !email || !password || !edad) {
             res.setHeader('Content-Type', 'application/json');
             return res.status(400).json({ error: `Complete los datos` })
         }
@@ -56,8 +56,9 @@ export class UsuariosController {
             return res.status(400).json({ error: `El usuario con email ${email} ya existe en DB` })
         }
 
+        const role = "user";
         // grabar usuario en DB
-        let nuevoUsuario = await usuariosService.createUsuario({ nombre, email, password })
+        let nuevoUsuario = await usuariosService.createUsuario({ nombre, email, password, edad, role })
 
         res.setHeader('Content-Type', 'application/json')
         res.status(200).json({ nuevoUsuario })

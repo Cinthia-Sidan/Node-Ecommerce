@@ -4,6 +4,7 @@ import { ProductosController } from "../controller/productos.controller.js";
 export const router=Router()
 
 
+
 router.get('/', ProductosController.getProductos)
 
 router.get('/:pid', ProductosController.getProductoById)
@@ -11,6 +12,8 @@ router.get('/:pid', ProductosController.getProductoById)
 router.post('/', ProductosController.createProducto)
 
 router.put("/:pid", ProductosController.updateProducto)
+
+
 
 /*router.get("/", async (req, res) => {
     try {

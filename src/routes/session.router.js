@@ -32,7 +32,8 @@ router.post('/login',passport.authenticate('login', {failureRedirect:'/api/sessi
 
     req.session.usuario = {
         nombre: req.user.nombre,
-        email: req.user.email
+        email: req.user.email,
+        role: req.user.role
     }
 
     res.redirect('/perfil')
@@ -70,6 +71,13 @@ router.post('/registro', passport.authenticate('registro', {failureRedirect: '/a
     } catch (error) {
         res.redirect('/registro?error=Error inesperado. Reintente en unos minutos')
     }*/
+
+    res.redirect(`/login?mensaje=Usuario ${email} registrado correctamente`)
+})
+
+router.post('/registroAdmin', passport.authenticate('registroAdmin', {failureRedirect: '/api/session/errorRegistro'}), async (req, res) => {
+    
+    let { email } = req.body
 
     res.redirect(`/login?mensaje=Usuario ${email} registrado correctamente`)
 })

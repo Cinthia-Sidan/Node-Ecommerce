@@ -64,6 +64,7 @@ app.use(passport.session())
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.use('/', vistasRouter);
+app.use('/api/vistas', vistasRouter);
 app.use('/api/session', sessionRouter);
 app.use('/api/usuarios', usuariosRouter);
 app.use('/api/productos', productosRouter);

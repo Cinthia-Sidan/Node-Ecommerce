@@ -98,7 +98,7 @@ li {
 
 .productos{
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* Cuatro columnas con tamaño igual */
+    grid-template-columns: repeat(5, 0.5fr); /* Cuatro columnas con tamaño igual */
     gap: 10px; /* Espacio entre las celdas */
     justify-items: center;
 }
@@ -107,7 +107,7 @@ li {
     border: 1px solid #ccc;
     padding: 10px;
     margin-bottom: 10px;
-    width: 200px;
+    width: 250px;
     height: 300px;
     display: inline-block; /* Para que cada producto esté en línea */
     margin-right: 10px; /* Espacio entre los recuadros de producto */
@@ -119,4 +119,20 @@ li {
 
 .producto p {
     margin-bottom: 5px;
+}
+
+.input-prod{
+    width: 100px;
+    margin-right: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px 
+}
+
+.button-prod{
+    width: 100px;
+    height: 35px;
+    color: white;
+    background-color: orange;
+    border: none;
+    border-radius: 5px;
 }

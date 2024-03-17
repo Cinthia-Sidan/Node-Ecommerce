@@ -15,6 +15,15 @@ export class ProductosController{
         }
     }
 
+    static async listarProductos(req, res) {
+        try {
+            return await productosService.getProductos()
+        } catch (error) {
+            console.log(error);
+            return null
+        }
+    }
+
     static async getProductoById(req, res){
         let producto = await productosService.getProductoById(req.params.pid)
 
@@ -31,14 +40,20 @@ export class ProductosController{
         let {nombre, stock, precio, descripcion}=req.body
 
         if(!nombre || !stock || !precio || !descripcion){
-            res.setHeader('Content-Type','application/json');
-            return res.status(400).json({error:`Complete los datos`})
+            //res.setHeader('Content-Type','application/json');
+            //return res.status(400).json({error:`Complete los datos`})
+            res.setHeader('Content-Type', 'text/html')
+            res.redirect(`/cargar-productos?error=Complete los datos`);
+
         }
 
         let nuevoProducto= await productosService.createProducto({nombre, stock, precio, descripcion})
 
-        res.setHeader('Content-Type','application/json')
-        res.status(200).json({nuevoProducto})
+        //res.setHeader('Content-Type','application/json')
+        //res.status(200).json({nuevoProducto})
+        res.setHeader('Content-Type', 'text/html')
+        res.redirect(`/cargar-productos?mensaje=Producto ${nuevoProducto.nombre} registrado correctamente`);
+
     }
 
     static async updateProducto(req,res){

@@ -7,6 +7,9 @@
         <h2>{{nombre}}</h2>
         <p>Precio: {{precio}}</p>
         <p>{{descripcion}}</p>
+        <input type="number" class="input-prod" value="1" min="1">
+        <button class="button-prod" data-id="{{_id}}" data-nombre="{{nombre}}" data-precio="{{precio}}">Agregar al carrito</button>
+   
     </div>
     {{/each}}
 </div>

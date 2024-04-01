@@ -22,6 +22,25 @@ const auth = (req, res, next) => {
     next()
 }
 
+//Auth 3 es para administrador
+const auth3 = (req, res, next) => {
+    if (!req.session.usuario) {
+        return res.redirect('/login');
+    }
+
+    // Verifica si el usuario tiene el rol de 'admin'
+    const isAdmin = req.session.usuario.role === 'admin';
+
+    if (!isAdmin) {
+        return res.status(403).send('No tienes permiso para acceder a esta página');
+    }
+
+    // Pasa isAdmin a la plantilla
+    res.locals.isAdmin = isAdmin;
+
+    next();
+};
+
 
 //En este caso si ya existe una sesion va a redireccionar al perfil
 const auth2 = (req, res, next) => {
@@ -53,12 +72,12 @@ router.get('/registro', auth2, (req, res) => {
     res.status(200).render('registro', { error, login: false })
 })
 
-router.get('/registroAdmin', auth2, (req, res) => {
+router.get('/registroAdmin', auth3, (req, res) => {
 
     let { error } = req.query
 
     res.setHeader('Content-Type', 'text/html')
-    res.status(200).render('registroAdmin', { error, login: false })
+    res.status(200).render('registroAdmin', {login: req.session.usuario ? true : false ,isAdmin: req.session.usuario && req.session.usuario.role === 'admin', error })
 })
 
 router.get('/login', auth2, (req, res) => {
@@ -77,7 +96,7 @@ router.get('/perfil', auth, (req, res) => {
     res.status(200).render('perfil', { usuario, login: true })
 })
 
-router.get('/usuarios', async (req, res) => {
+router.get('/usuarios', auth, async (req, res) => {
 
     let usuarios = await managerUsuarios.listarUsuarios();
     if (!usuarios) {
@@ -94,7 +113,7 @@ router.get('/usuarios', async (req, res) => {
 router.get('/', ProductosController.getProductos)
 
 // Ruta para renderizar la pantalla de cargar productos
-router.get('/cargar-productos', async (req, res) => {
+router.get('/cargar-productos',auth3, async (req, res) => {
 
     let { error, mensaje } = req.query;
     const productos = await productosService.getProductos()
@@ -102,7 +121,7 @@ router.get('/cargar-productos', async (req, res) => {
     console.log(productos);
 
     res.setHeader('Content-Type', 'text/html')
-    res.status(200).render('cargar-productos', { error: null, productos: productos, mensaje });
+    res.status(200).render('cargar-productos', { login: req.session.usuario ? true : false ,isAdmin: req.session.usuario && req.session.usuario.role === 'admin', error: null, productos: productos, mensaje });
 
 
 

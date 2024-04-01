@@ -31,6 +31,7 @@ router.post('/login',passport.authenticate('login', {failureRedirect:'/api/sessi
     console.log(req.user);
 
     req.session.usuario = {
+        id: req.user._id,
         nombre: req.user.nombre,
         email: req.user.email,
         role: req.user.role

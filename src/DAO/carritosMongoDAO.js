@@ -12,10 +12,17 @@ export class CarritoMongoDAO {
         }
     }
 
-    async getBy(id) {
-        try {
-            return carrito = await carritosModelo.findOne({ _id: id })
-        } catch (error) {
+    async getBy(id){
+        let carrito
+        return carrito= await carritosModelo.findOne({_id: id})
+    }
+
+    async getByUser(id){
+        try{
+            let carrito
+            return carrito = await carritosModelo.findOne({usuario: id})
+        
+        }catch (error){
             console.log(error.message);
             return null
         }
@@ -33,11 +40,10 @@ export class CarritoMongoDAO {
 
     async update(id, carrito) {
         try {
-            return await carritosModelo.updateOne({ _id: id, carrito })
-
+            return await carritosModelo.findOneAndUpdate({ usuario: id }, carrito, { new: true });
         } catch (error) {
             console.log(error.message);
-            return null
+            return null;
         }
     }
 

@@ -13,8 +13,16 @@ class CarritosService{
         return await this.dao.getBy(id)
     }
 
+    async getCarritoByUser(id){
+        return await this.dao.getByUser(id)
+    }
+
     async createCarrito(carrito){
         return await this.dao.create(carrito)
+    }
+
+    async updateCarrito(id, carrito){
+        return await this.dao.update(id, carrito)
     }
 
    

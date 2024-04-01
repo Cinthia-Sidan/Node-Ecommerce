@@ -8,8 +8,40 @@
         <p>Precio: {{precio}}</p>
         <p>{{descripcion}}</p>
         <input type="number" class="input-prod" value="1" min="1">
-        <button class="button-prod" data-id="{{_id}}" data-nombre="{{nombre}}" data-precio="{{precio}}">Agregar al carrito</button>
-   
+        <button class="button-prod" data-id="{{_id}}" data-nombre="{{nombre}}" data-precio="{{precio}}">Agregar al
+            carrito</button>
+
     </div>
     {{/each}}
 </div>
+
+<script>
+    // Manejar evento de clic en el botón "Agregar al carrito"
+    document.querySelectorAll('.button-prod').forEach(button => {
+        button.addEventListener('click', async () => {
+            const productoId = button.dataset.id;
+            const cantidad = button.parentElement.querySelector('.input-prod').value;
+
+            try {
+                const response = await fetch('/api/carritos', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ productoId, cantidad }),
+                });
+
+                if (response.ok) {
+                    alert('Producto agregado al carrito con éxito');
+                } else {
+                    const data = await response.json();
+                    alert(data.error || 'Error al agregar producto al carrito');
+                }
+            } catch (error) {
+                console.error('Error al agregar producto al carrito:', error);
+                alert('Error al agregar producto al carrito');
+            }
+        });
+    });
+    
+</script>

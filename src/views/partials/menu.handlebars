@@ -6,11 +6,12 @@
             <li><a href="/mail.html">Mail</a></li>
             {{#if login}}
             <li><a href="/perfil">Perfil</a></li>
-                {{#if isAdmin}}
-                <li><a href="/cargar-productos">Cargar Productos</a></li>
-                <li><a href="/registroAdmin">Registro Administrador</a></li>
-                {{/if}}
             
+            {{#if isAdmin}}
+            <li><a href="/cargar-productos">Cargar Productos</a></li>
+            <li><a href="/registroAdmin">Registro Administrador</a></li>
+            {{/if}}
+
             <li><a href="/api/session/logout">Logout</a></li>
             {{else}}
             <li><a href="/login">Login</a></li>

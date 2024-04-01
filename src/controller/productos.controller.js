@@ -11,7 +11,7 @@ export class ProductosController{
             res.status(500).json({ error: `Error inesperado en el servidor` })
         } else {
             res.setHeader('Content-Type','text/html')
-            res.status(200).render("home",{ productos })
+            res.status(200).render("home",{ login: req.session.usuario ? true : false ,isAdmin: req.session.usuario && req.session.usuario.role === 'admin',productos })
         }
     }
 

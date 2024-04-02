@@ -96,10 +96,12 @@ li {
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
-.productos{
+.productos {
     display: grid;
-    grid-template-columns: repeat(5, 0.5fr); /* Cuatro columnas con tamaño igual */
-    gap: 10px; /* Espacio entre las celdas */
+    grid-template-columns: repeat(5, 0.5fr);
+    /* Cuatro columnas con tamaño igual */
+    gap: 10px;
+    /* Espacio entre las celdas */
     justify-items: center;
 }
 
@@ -109,8 +111,10 @@ li {
     margin-bottom: 10px;
     width: 250px;
     height: 300px;
-    display: inline-block; /* Para que cada producto esté en línea */
-    margin-right: 10px; /* Espacio entre los recuadros de producto */
+    display: inline-block;
+    /* Para que cada producto esté en línea */
+    margin-right: 10px;
+    /* Espacio entre los recuadros de producto */
 }
 
 .producto h2 {
@@ -121,18 +125,75 @@ li {
     margin-bottom: 5px;
 }
 
-.input-prod{
+.input-prod {
     width: 100px;
     margin-right: 50px;
     margin-top: 10px;
-    margin-bottom: 10px 
+    margin-bottom: 10px
 }
 
-.button-prod{
+.button-prod {
     width: 100px;
     height: 35px;
     color: white;
     background-color: orange;
     border: none;
     border-radius: 5px;
+}
+
+.carrito-container {
+    display: flex;
+    justify-content: center;
+}
+
+.carrito-recuadro {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    border: 2px solid white;
+    height: 300px;
+    max-height: 300px; /* Altura máxima de la tabla */
+    overflow-y: auto;/* Agregar scroll vertical si es necesario */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.t-col {
+    width: 250px;
+    border-bottom:1px solid white ;
+}
+
+.t-row {
+    height: 40px !important;
+}
+
+td {
+    border-bottom: 1px solid #dddddd;
+    text-align: center;
+    padding: 3px;
+  }
+
+.car-boton{
+    display: flex;
+    justify-content: flex-end;
+    margin: 40px;
+}
+
+.boton-confirmar{
+    display: inline-block;
+    width: 60%;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    background-color: #cc7500;
+    border: 2px solid #cc7500;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-left: 20%;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }

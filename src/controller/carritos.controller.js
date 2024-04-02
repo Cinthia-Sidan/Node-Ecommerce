@@ -36,15 +36,19 @@ export class CarritosController {
     }
 
     static async getCarritoByUser(req, res) {
-        let carrito = await carritosService.getCarritoByUser(req.params.uid)
+        const userId = req.params.uid;
+        let carrito = await carritosService.getCarritoByUser(userId)
         console.log(carrito);
         if (!carrito) {
-            res.setHeader('Content-Type', 'application/json')
+            res.setHeader('Content-Type', 'text/html')
             return res.status(500).json({ error: `Error inesperado en el servidor` })
     
         } else {
-            res.setHeader('Content-Type', 'application/json')
-            return res.status(200).json({ carrito });
+            //res.setHeader('Content-Type', 'application/json')
+            //return res.status(200).json({ carrito });
+
+            res.setHeader('Content-Type', 'text/html')
+            res.status(200).render('mi-carrito', { login: req.session.usuario ? true : false, carrito: carrito });
         }
 
     }

@@ -60,6 +60,12 @@ inicializarPassport()
 app.use(passport.initialize())
 app.use(passport.session())
 
+app.use((req, res, next) => {
+    // Establecer userId en res.locals para que esté disponible en todas las plantillas
+    res.locals.userId = req.session.usuario ? req.session.usuario.id : null;
+    next();
+});
+
 //carpeta de rutas estaticas
 app.use(express.static(path.join(__dirname, '/public')));
 

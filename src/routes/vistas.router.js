@@ -2,6 +2,7 @@ import { Router } from "express";
 import { ManagerUsuarios } from "../DAO/managerUsuarios.js";
 import { ProductosController } from "../controller/productos.controller.js";
 import { productosService } from "../services/productos.service.js";
+import { CarritosController } from "../controller/carritos.controller.js";
 export const router = Router();
 
 const managerUsuarios = new ManagerUsuarios();
@@ -13,6 +14,7 @@ const auth = (req, res, next) => {
         return res.redirect('/login')
     }
 
+    const userId = req.session.usuario.id;
     // Verifica si el usuario tiene el rol de 'admin'
     const isAdmin = req.session.usuario.role === 'admin';
 
@@ -20,6 +22,8 @@ const auth = (req, res, next) => {
     res.locals.isAdmin = isAdmin;
 
     next()
+
+    
 }
 
 //Auth 3 es para administrador
@@ -126,3 +130,5 @@ router.get('/cargar-productos',auth3, async (req, res) => {
 
 
 });
+
+router.get('/carrito/:uid', auth, CarritosController.getCarritoByUser);

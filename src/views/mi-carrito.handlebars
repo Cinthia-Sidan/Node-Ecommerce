@@ -1,0 +1,43 @@
+{{>menu}}
+<br>
+<h2>Carrito {{usuario.nombre}}</h2>
+<br>
+
+
+<div class="carrito-container">
+    <div class="carrito-recuadro">
+        {{#if carrito.productos.length}}
+        <table>
+            <thead>
+                <tr class="t-row">
+                    <th class="t-col">Nombre</th>
+                    <th class="t-col">Cantidad</th>
+                    <th class="t-col">Precio Unitario</th>
+                    <th class="t-col">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each carrito.productos}}
+                <tr class="t-row">
+                    <td class="t-col">{{this.nombre}}</td>
+                    <td class="t-col">{{this.cantidad}}</td>
+                    <td class="t-col">{{this.precio}}</td>
+                    <td class="t-col">{{this.subtotal}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" style="text-align: right;"><strong>Total:</strong></td>
+                    <td>{{carrito.total}}</td>
+                </tr>
+            </tfoot>
+        </table>
+        {{else}}
+        <p>No hay productos en el carrito.</p>
+        {{/if}}
+    </div>
+</div>
+<div class="car-boton">
+    <button class="boton-confirmar">Confirmar compra</button>
+</div>

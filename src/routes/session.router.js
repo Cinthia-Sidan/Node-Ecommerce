@@ -156,8 +156,7 @@ router.get("/recupero02", async(req,res)=>{
 router.post("/recupero03", async (req,res)=>{
     let {password, password2, token}= req.body
     if(password!==password2){
-        res.setHeader('Content-Type', 'application/json');
-        return res.status(400).json({error:`Claves diferentes`})
+        return res.redirect(`http://localhost:3000/recupero02.html?error=Las claves ingresadas son diferentes&token=${token}`);
     }
 
     
@@ -170,8 +169,8 @@ router.post("/recupero03", async (req,res)=>{
         }
 
         if(bcrypt.compareSync(password, usuario.password)){
-            res.setHeader('Content-Type','application/json');
-            return res.status(400).json({error:"La contraseña ingresada ya ha sido utilizada a previamente. Ingrese una nueva"})
+            return res.redirect(`http://localhost:3000/recupero02.html?error=La contraseña ingresada ya ha sido utilizada a previamente. Ingrese una nueva&token=${token}`);
+            
         }
 
         let usuarioActualizado={...usuario, password:bcrypt.hashSync(password, bcrypt.genSaltSync(10))}

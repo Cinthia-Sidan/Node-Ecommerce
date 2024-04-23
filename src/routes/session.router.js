@@ -4,6 +4,11 @@ import { usuariosModelo } from "../DAO/models/usuarios.model.js";
 import { error } from "console";
 import { creaHash, validaPassword } from "../utils.js";
 import passport from "passport";
+import jwt from "jsonwebtoken";
+import { enviarMail } from "../mail.js";
+import bcrypt from 'bcrypt';
+
+
 export const router = Router()
 
 router.get('/errorLogin', (req,res)=>{
@@ -100,4 +105,83 @@ router.get('/callbackGithub', passport.authenticate('github',{failureRedirect:'/
     res.status(200).json({
         message: "Acceso OK!!"
     });
+})
+
+
+router.post("/recupero01", async (req, res)=>{
+
+    let {email}= req.body;
+
+    let usuario = await usuariosModelo.findOne({email}).lean()
+
+    if(!usuario){
+        //enviar mensaje de error por get params a la pagina recupero.html
+        res.redirect("http://localhost:3000/login?error=Ocurrio un error al intentar resetear contraseña. Pongase en contacto con un administrador")
+    }else{ 
+
+    delete usuario.password
+}
+    let token=jwt.sign({...usuario}, "CoderCoder123", {expiresIn:"1h"});
+
+    let mensaje = `Se ha solicitado gestionar una nueva clave para su usuario.
+    Por favor haga click en el siguiente link para continuar: <a href="http://localhost:3000/api/session/recupero02?token=${token}">Crear nueva clave</a>
+    En caso de no haber solicitado el cambio de clave omita este mensaje.`
+
+    let respuesta= await enviarMail(email, "Recupero Password", mensaje);
+
+    // res.setHeader('Content-Type','application/json');
+    // return res.status(200).json({
+    //     respuesta
+    // });
+    
+    if(respuesta.accepted.length>0){
+        res.redirect("http://localhost:3000/login?mensaje=Recibirá un correo con los pasos a seguir para recuperar su usuario")
+    }else{
+        res.redirect("http://localhost:3000/login?error=Ocurrio un error al intentar resetear contraseña")
+    }
+})
+
+router.get("/recupero02", async(req,res)=>{
+    let {token} = req.query;
+
+    try{
+        let datosToken=jwt.verify(token, "CoderCoder123")
+
+        res.redirect("http://localhost:3000/recupero02.html?token="+token)
+    }catch(error){
+        res.redirect("http://localhost:3000/login?error=Error inesperado en el servidor - 500 ")
+    }
+})
+
+router.post("/recupero03", async (req,res)=>{
+    let {password, password2, token}= req.body
+    if(password!==password2){
+        res.setHeader('Content-Type', 'application/json');
+        return res.status(400).json({error:`Claves diferentes`})
+    }
+
+    
+    try{
+        let datosToken=jwt.verify(token, "CoderCoder123")
+        let usuario =await usuariosModelo.findOne({email:datosToken.email}).lean()
+        if(!usuario){
+            res.setHeader('Content-Type','application/json');
+            return res.status(400).json({error:"Error de usuario"})
+        }
+
+        if(bcrypt.compareSync(password, usuario.password)){
+            res.setHeader('Content-Type','application/json');
+            return res.status(400).json({error:"La contraseña ingresada ya ha sido utilizada a previamente. Ingrese una nueva"})
+        }
+
+        let usuarioActualizado={...usuario, password:bcrypt.hashSync(password, bcrypt.genSaltSync(10))}
+
+        await usuariosModelo.updateOne({email:datosToken.email}, usuarioActualizado)
+
+
+        res.redirect("http://localhost:3000/login?mensaje=Se actualizó la contraseña correctamente")
+    }catch(error){
+        res.redirect("http://localhost:3000/login?error=Error inesperado en el servidor - 500 ")
+    }
+
 })

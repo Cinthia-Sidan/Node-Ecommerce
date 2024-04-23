@@ -11,15 +11,27 @@ const transport = nodemailer.createTransport(
     }
 )
 
-export const enviarMail=(to, subject, message, adjuntos)=>{
+
+export const enviarMail=(to, subject, message)=>{
     return transport.sendMail(
         {
-            from: "Cinthia Sidan sidancin22@gmail.com",
+            from: "Web",
             to: to,
             subject: subject,
-            //text: "prueba"
             html: message,
-            attachments: adjuntos
         }
     )
 }
+
+// export const enviarMail=(to, subject, message, adjuntos)=>{
+//     return transport.sendMail(
+//         {
+//             from: "Cinthia Sidan sidancin22@gmail.com",
+//             to: to,
+//             subject: subject,
+//             //text: "prueba"
+//             html: message,
+//             attachments: adjuntos
+//         }
+//     )
+// }

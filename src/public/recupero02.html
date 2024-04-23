@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Ingrese una nueva contraseña</h2>
+
+    <hr>
+
+    <form action="/api/session/recupero03" method="post">
+        <input type="password" class="input-login" name="password" placeholder="Nueva Contraseña">
+        <input type="password" class="input-login" name="password2" id="password2" placeholder="Repita Contraseña">
+        <input type="text" name="token" id="token" hidden>
+        <br>
+        <input type="submit" class="boton" value="Enviar">
+    </form>
+
+    <div><h3 id="error"></h3></div>
+
+
+    <script>
+        //obtengo el parametro token de la url
+        let params=new URLSearchParams(window.location.search)
+        let token = params.get("token")
+
+        if(!token){
+            alert("error")
+        }else{
+            //si el token existe se lo envío al valor del input hidden token
+            let inputToken = document.getElementById("token")
+            inputToken.value=token
+        }
+
+
+        let error =params.get("error")
+
+        if(error){
+            let h3=document.getElementById("error")
+            h3.textContent=error;
+        }
+    </script>
+
+</body>
+</html>

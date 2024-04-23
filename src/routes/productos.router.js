@@ -1,5 +1,7 @@
 import { Router } from "express";
 import { ProductosController } from "../controller/productos.controller.js";
+import { productModel } from "../DAO/models/productos.model.js";
+import { generaProducto } from "../mocks/productos.mocks.js";
 
 export const router=Router()
 
@@ -12,6 +14,41 @@ router.get('/:pid', ProductosController.getProductoById)
 router.post('/', ProductosController.createProducto)
 
 router.put("/:pid", ProductosController.updateProducto)
+
+router.get("/mockingproducts", async(req, res)=>{
+    let {cantidad, inicializa}=req.query
+    if(!cantidad || cantidad ===0){
+        res.setHeader('Content-Type', 'application/json');
+        return res.status(400).json({error:`Ingrese la cantidad de producto`})
+    }
+
+    if(inicializa){
+        try{
+            let resultado= await productModel.deleteMany({})
+            console.log(resultado);
+        }catch (error){
+            console.log(error.message);
+            res.setHeader('Content-Type', 'application/json');
+            return res.status(500).json({error:`Error inesperado en el servidor`})
+        }
+    }
+
+    let productos =[]
+    for(let i=0; i<cantidad; i++){
+        productos.push(generaProducto())
+    }
+
+    try{
+        let productosAlta= await productModel.insertMany(productos)
+        res.setHeader('Content-Type','application/json');
+        return res.status(200).json({payload: productosAlta});
+
+    }catch(error){
+        console.log(error.message);
+        res.setHeader('Content-Type','application/json');
+        return res.status(500).json({error:`Error inesperado en el servidor`})
+    }
+})
 
 
 

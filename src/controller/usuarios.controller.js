@@ -1,4 +1,7 @@
 import { usuariosService } from "../services/usuarios.service.js"
+import { CustomError } from "../utils/CustomErrors.js"
+import { errorArgumentos } from "../utils/errores.js"
+import { ERRORES_INTERNOS, STATUS_CODE } from "../utils/tiposError.js"
 
 export class UsuariosController {
     constructor() { }
@@ -45,8 +48,11 @@ export class UsuariosController {
     static async createUsuario(req, res) {
         let { nombre, email, password, edad } = req.body
         if (!nombre || !email || !password || !edad) {
+
+            req.logger.error("No se completaron propiedades obligatorias al registrar un usuario")
             res.setHeader('Content-Type', 'application/json');
-            return res.status(400).json({ error: `Complete los datos` })
+            //return res.status(400).json({ error: `Complete los datos` })
+            throw CustomError.CustomError("Complete todos los datos", "Falta completar datos obligatorios para continuar con el registro",STATUS_CODE.ERROR_ARGUMENTOS, ERRORES_INTERNOS.ARGUMENTOS, errorArgumentos(req.body))
         }
 
         // valide que el usuario no existe

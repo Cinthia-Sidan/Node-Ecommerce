@@ -3,6 +3,7 @@ import { usuariosModelo } from "../DAO/models/usuarios.model.js";
 import { ManagerUsuarios } from "../DAO/managerUsuarios.js";
 import mongoose from "mongoose";
 import { UsuariosController } from "../controller/usuarios.controller.js";
+import { generaUsuario } from "../mocks/productos.mocks.js";
 export const router = Router()
 
 const managerUsuarios = new ManagerUsuarios();

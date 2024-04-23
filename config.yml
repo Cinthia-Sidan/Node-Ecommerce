@@ -1,0 +1,37 @@
+config:
+  target: "http://localhost:3000"
+  phases:
+    - duration: 10
+      arrivalRate: 5
+      name: "Fase 1: prueba normal"
+scenarios:
+  - name: "Prueba registro / Login"
+    flow:
+      - log: "Creamos las variables para el usuario de prueba"
+      - get: 
+          url: "/api/mocking/usuario"
+          capture:
+            - json: "$.usuario.nombre"
+              as: "nombre"
+            - json: "$.usuario.email"
+              as: "email"
+            - json: "$.usuario.password"
+              as: "password"
+            - json: "$.usuario.edad"
+              as: "edad"  
+      - log: "Registo de {{nombre}} con email {{email}}"
+      - post:
+          url: "/api/session/registro"
+          json: 
+            nombre: "{{nombre}}"
+            email: "{{email}}"
+            password: "{{password}}"
+            edad: "{{edad}}"
+      - log: "Login {{email}}"
+      - post:
+          url: "/api/session/login"
+          json:
+            email: "{{email}}"
+            password: "{{password}}"
+
+          

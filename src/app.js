@@ -1,4 +1,4 @@
-import __dirname from './utils.js';
+import __dirname, { middLogg } from './utils.js';
 import { config } from './config/config.js';
 import sessions from 'express-session';
 import mongoStore from 'connect-mongo';
@@ -12,18 +12,22 @@ import { router as sessionRouter } from './routes/session.router.js';
 import {router as productosRouter} from './routes/productos.router.js';
 import {router as carritosRouter } from './routes/carritos.router.js';
 import { router as mailRouter } from './routes/mail.router.js';
+import { router as mocking } from './routes/mocks.router.js'; 
 import { enviarWS } from './whatsApp.js';
 import cors from 'cors'
+import compression from 'express-compression';
+
 
 import { inicializarPassport } from './config/config.passport.js';
 import passport from 'passport';
+import { errorHandler } from './middlewars/errorHandler.js';
 //const PORT = 3000;
 const PORT =config.PORT;
 
 console.log("PRUEBA PORT:", config.PRUEBA_PORT);
 
 const app = express();
-
+app.use(compression({brotli:{enabled:true}}))
 //Configuramos handlebars
 app.engine('handlebars', engine({
     runtimeOptions: {
@@ -35,10 +39,14 @@ app.engine('handlebars', engine({
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
 
+app.use(middLogg);
+
 //Parsea la información de req en el body y tomarla como json
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors())
+
+
 
 //uso de session
 app.use(sessions({
@@ -76,6 +84,8 @@ app.use('/api/usuarios', usuariosRouter);
 app.use('/api/productos', productosRouter);
 app.use('/api/carritos', carritosRouter);
 app.use('/api/mail', mailRouter);
+app.use('/api/mocking', mocking)
+app.use(errorHandler)
 app.get('/ws', async(req,res)=>{
     let {mensaje, numero}=req.query
 
